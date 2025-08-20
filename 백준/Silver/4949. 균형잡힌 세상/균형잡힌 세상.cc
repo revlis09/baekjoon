@@ -3,35 +3,40 @@
 
 int main() {
     char a[150];
-    
+
     while (1) {
-        if (!fgets(a, sizeof(a), stdin)) break; // 입력 없으면 종료
-        if (a[0] == '.' && a[1] == '\n') break; // 종료 조건
+        if (!fgets(a, sizeof(a), stdin)) {
+            break;
+        }
 
-        char stack[150];
-        int top = 0, result = 1;
+        if (a[0] == '.' && a[1] == '\n') {
+            break;
+        }
 
-        for (int i = 0; a[i]; i++) {
+        char b[150];
+        int i, m = 0, result = 1;
+
+        for (i = 0; a[i]; i++) {
             if (a[i] == '(' || a[i] == '[') {
-                stack[top++] = a[i];
-            }
+                b[m++] = a[i];
+            } 
             else if (a[i] == ')') {
-                if (top == 0 || stack[top - 1] != '(') {
+                if (m == 0 || b[m - 1] != '(') {
                     result = 0;
                     break;
                 }
-                top--;
-            }
+                m--;
+            } 
             else if (a[i] == ']') {
-                if (top == 0 || stack[top - 1] != '[') {
+                if (m == 0 || b[m - 1] != '[') {
                     result = 0;
                     break;
                 }
-                top--;
+                m--;
             }
         }
 
-        if (result && top == 0) {
+        if (m == 0 && result) {
             printf("yes\n");
         } else {
             printf("no\n");
@@ -40,3 +45,5 @@ int main() {
 
     return 0;
 }
+
+
